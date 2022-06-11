@@ -14,7 +14,7 @@ type Spinner struct {
 	interval      time.Duration
 	current       int
 	currentTime   time.Duration
-	belong        *Progress
+	belong        *Process
 	mtx           *sync.RWMutex
 }
 
@@ -27,7 +27,7 @@ func NewSpinner(in []string, interval time.Duration) *Spinner {
 		mtx:           &sync.RWMutex{},
 	}
 }
-func (s *Spinner) Bind(p *Progress) *Spinner {
+func (s *Spinner) Bind(p *Process) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 	s.belong = p

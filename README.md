@@ -1,2 +1,2 @@
 # uispinner
-A Go library to render multiple spinners in terminal applications, support multi progress
+A Go library to render multiple spinners in terminal applications, support multi process

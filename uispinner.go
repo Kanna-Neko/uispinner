@@ -10,7 +10,7 @@ import (
 	"github.com/gosuri/uilive"
 )
 
-type Progress struct {
+type Process struct {
 	Spinners        []*Spinner
 	lw              *uilive.Writer
 	tdone           chan bool
@@ -18,8 +18,8 @@ type Progress struct {
 	refreshInterval time.Duration
 }
 
-func New() *Progress {
-	return &Progress{
+func New() *Process {
+	return &Process{
 		Spinners:        make([]*Spinner, 0),
 		lw:              uilive.New(),
 		tdone:           make(chan bool),
@@ -28,7 +28,7 @@ func New() *Progress {
 	}
 }
 
-func (p *Progress) AddSpinner(stringSet []string, interval time.Duration) *Spinner {
+func (p *Process) AddSpinner(stringSet []string, interval time.Duration) *Spinner {
 	p.mtx.Lock()
 	defer p.mtx.Unlock()
 	var res = NewSpinner(stringSet, interval).Bind(p)
@@ -37,13 +37,13 @@ func (p *Progress) AddSpinner(stringSet []string, interval time.Duration) *Spinn
 	return res
 }
 
-func (p *Progress) SetRefreshInterval(interval time.Duration) {
+func (p *Process) SetRefreshInterval(interval time.Duration) {
 	p.mtx.Lock()
 	defer p.mtx.Unlock()
 	p.refreshInterval = interval
 }
 
-func (p *Progress) Listen() {
+func (p *Process) Listen() {
 	for {
 		p.mtx.Lock()
 		interval := p.refreshInterval
@@ -60,7 +60,7 @@ func (p *Progress) Listen() {
 	}
 }
 
-func (p *Progress) print() {
+func (p *Process) print() {
 	p.mtx.Lock()
 	defer p.mtx.Unlock()
 	for _, Spinner := range p.Spinners {
@@ -69,15 +69,15 @@ func (p *Progress) print() {
 	p.lw.Flush()
 }
 
-func (p *Progress) Start() {
+func (p *Process) Start() {
 	go p.Listen()
 }
 
-func (p *Progress) Stop() {
+func (p *Process) Stop() {
 	p.tdone <- true
 	<-p.tdone
 }
 
-func (p *Progress) Bypass() io.Writer {
+func (p *Process) Bypass() io.Writer {
 	return p.lw.Bypass()
 }
