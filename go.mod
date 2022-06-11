@@ -1,4 +1,4 @@
-module uisnipper
+module uisppiner
 
 go 1.18
 
