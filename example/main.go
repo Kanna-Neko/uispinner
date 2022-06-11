@@ -2,7 +2,8 @@ package main
 
 import (
 	"time"
-	"uispinner"
+
+	"github.com/jaxleof/uispinner"
 
 	"github.com/briandowns/spinner"
 )

@@ -5,7 +5,8 @@ import (
 	"io"
 	"sync"
 	"time"
-	"uispinner/tool"
+
+	"github.com/jaxleof/uispinner/tool"
 
 	"github.com/gosuri/uilive"
 )
