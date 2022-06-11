@@ -6,8 +6,8 @@ import (
 )
 
 type Spinner struct {
-	Prefix        string
-	Suffix        string
+	prefix        string
+	suffix        string
 	Complete      string
 	SpinnerString []string
 	done          bool
@@ -40,6 +40,22 @@ func (s *Spinner) Done() *Spinner {
 	s.belong.RefreshInterval()
 	return s
 }
+func (s *Spinner) SetCharSet(in []string) *Spinner {
+	s.mtx.Lock()
+	defer s.mtx.Unlock()
+	s.SpinnerString = in
+	s.current = 0
+	return s
+}
+func (s *Spinner) SetInterval(interval time.Duration) *Spinner {
+	s.mtx.Lock()
+	s.interval = interval
+	s.mtx.Unlock()
+	if !s.done {
+		s.belong.RefreshInterval()
+	}
+	return s
+}
 func (s *Spinner) SetComplete(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
@@ -59,13 +75,13 @@ func (s *Spinner) Reverse() *Spinner {
 func (s *Spinner) SetPrefix(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
-	s.Prefix = in
+	s.prefix = in
 	return s
 }
 func (s *Spinner) SetSuffix(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
-	s.Suffix = in
+	s.suffix = in
 	return s
 }
 func (s *Spinner) String() string {
@@ -82,6 +98,6 @@ func (s *Spinner) String() string {
 				s.currentTime %= s.interval
 			}
 		}()
-		return s.Prefix + s.SpinnerString[s.current] + s.Suffix
+		return s.prefix + s.SpinnerString[s.current] + s.suffix
 	}
 }

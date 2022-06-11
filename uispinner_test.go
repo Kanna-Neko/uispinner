@@ -20,6 +20,8 @@ func TestSpinner(t *testing.T) {
 	time.Sleep(time.Second * 5)
 	spinner3.Reverse()
 	time.Sleep(time.Second * 5)
+	spinner3.SetCharSet(spinner.CharSets[39])
+	time.Sleep(time.Second * 5)
 	spinner3.Done()
 	cj.Stop()
 }
