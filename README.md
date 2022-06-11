@@ -1,5 +1,5 @@
 # uispinner
-[![GoDoc](https://godoc.org/github.com/briandowns/spinner?status.svg)](https://pkg.go.dev/github.com/jaxleof/uispinner@v0.0.5)
+[![GoDoc](https://godoc.org/github.com/briandowns/spinner?status.svg)](https://pkg.go.dev/github.com/jaxleof/uispinner@v0.0.5) [![Go](https://github.com/jaxleof/uispinner/actions/workflows/go.yml/badge.svg)](https://github.com/jaxleof/uispinner/actions/workflows/go.yml)
 
 A Go library to render multiple spinners in terminal applications, support multi process
 
