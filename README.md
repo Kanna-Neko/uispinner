@@ -9,7 +9,7 @@ A Go library to render multiple spinners in terminal applications, support multi
 
 ## usage
 ```go
-cj := New()
+cj := uispinner.New()
 spinner1 := cj.AddSpinner(spinner.CharSets[34], 1*time.Millisecond).SetComplete("helloWorld").SetPrefix("abc").SetSuffix("ab")
 spinner2 := cj.AddSpinner(spinner.CharSets[0], 100*time.Millisecond).SetComplete("good")
 cj.Start()
