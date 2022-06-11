@@ -30,17 +30,24 @@ func New() *Process {
 
 func (p *Process) AddSpinner(stringSet []string, interval time.Duration) *Spinner {
 	p.mtx.Lock()
-	defer p.mtx.Unlock()
 	var res = NewSpinner(stringSet, interval).Bind(p)
-	p.refreshInterval = time.Duration(tool.Gcd(int64(p.refreshInterval), int64(res.interval)))
 	p.Spinners = append(p.Spinners, res)
+	p.mtx.Unlock()
+	p.RefreshInterval()
 	return res
 }
 
-func (p *Process) SetRefreshInterval(interval time.Duration) {
+func (p *Process) RefreshInterval() {
 	p.mtx.Lock()
 	defer p.mtx.Unlock()
-	p.refreshInterval = interval
+	var interval int64 = int64(time.Second)
+	for i := 0; i < len(p.Spinners); i++ {
+		if p.Spinners[i].done {
+			continue
+		}
+		interval = tool.Gcd(interval, int64(p.Spinners[i].interval))
+	}
+	p.refreshInterval = time.Duration(interval)
 }
 
 func (p *Process) Listen() {

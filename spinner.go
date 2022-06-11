@@ -37,6 +37,7 @@ func (s *Spinner) Done() *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 	s.done = true
+	s.belong.RefreshInterval()
 	return s
 }
 func (s *Spinner) SetComplete(in string) *Spinner {
