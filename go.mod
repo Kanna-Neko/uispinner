@@ -1,4 +1,4 @@
-module uisppiner
+module uispinner
 
 go 1.18
 
@@ -10,6 +10,6 @@ require (
 require (
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/mattn/go-colorable v0.1.2 // indirect
-	github.com/mattn/go-isatty v0.0.14 // indirect
-	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect
+	github.com/mattn/go-isatty v0.0.8 // indirect
+	golang.org/x/sys v0.0.0-20190222072716-a9d3bda3a223 // indirect
 )

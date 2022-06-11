@@ -5,7 +5,7 @@ import (
 	"io"
 	"sync"
 	"time"
-	"uisnipper/tool"
+	"uispinner/tool"
 
 	"github.com/gosuri/uilive"
 )
