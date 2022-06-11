@@ -3,9 +3,9 @@ package uispinner
 import (
 	"fmt"
 	"io"
-	"snipper/tool"
 	"sync"
 	"time"
+	"uisnipper/tool"
 
 	"github.com/gosuri/uilive"
 )
