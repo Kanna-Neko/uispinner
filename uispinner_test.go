@@ -18,6 +18,8 @@ func TestSpinner(t *testing.T) {
 	spinner2.Done()
 	spinner3 := cj.AddSpinner(spinner.CharSets[0], 100*time.Millisecond).SetComplete("goodBye")
 	time.Sleep(time.Second * 5)
+	spinner3.Reverse()
+	time.Sleep(time.Second * 5)
 	spinner3.Done()
 	cj.Stop()
 }

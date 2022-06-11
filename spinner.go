@@ -45,6 +45,16 @@ func (s *Spinner) SetComplete(in string) *Spinner {
 	s.Complete = in
 	return s
 }
+func (s *Spinner) Reverse() *Spinner {
+	i := 0
+	j := len(s.SpinnerString) - 1
+	for i < j {
+		s.SpinnerString[i], s.SpinnerString[j] = s.SpinnerString[j], s.SpinnerString[i]
+		i++
+		j--
+	}
+	return s
+}
 func (s *Spinner) SetPrefix(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
