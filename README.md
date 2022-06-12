@@ -9,6 +9,12 @@ A Go library to render multiple spinners in terminal applications, support multi
 3. update spinner dynamic
 4. every spinner has self interval
 
+## install
+``` shell
+go get github.com/jaxleof/uispinner
+go get github.com/briandowns/spinner #this package supply many spinners
+```
+
 ## usage
 ```go
 cj := uispinner.New()
