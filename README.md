@@ -30,7 +30,7 @@ cj.Stop()
 ```
 
 ## snapshot
-![image.png](/test.png)
+![snap.png](/snapshot.png)
 
 ## thanks
 1. [uilive](https://github.com/gosuri/uilive). uilive is a go library for updating terminal output in realtime, which support whole uispinner.

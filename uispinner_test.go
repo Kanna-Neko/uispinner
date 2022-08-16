@@ -15,11 +15,11 @@ func TestSpinner(t *testing.T) {
 	cj := New()
 	spinner1 := cj.AddSpinner(spinner.CharSets[8], 300*time.Millisecond).SetComplete("All task had completed")
 	for i := 0; i < 3; i++ {
-		spinner2 := spinner1.AddSpinner(spinner.CharSets[9], 200*time.Millisecond).SetComplete(fmt.Sprintf("part %d had completed", i))
+		spinner2 := spinner1.AddSpinner(spinner.CharSets[9], 200*time.Millisecond).SetComplete(fmt.Sprintf("part %d had completed", i+1)).SetPrefix(fmt.Sprintf("part os process %d", i+1))
 		for j := 0; j < 3; j++ {
-			spinner3 := spinner2.AddSpinner(spinner.CharSets[0], 200*time.Millisecond).SetPrefix(fmt.Sprintf("this is process %d", j)).SetComplete(fmt.Sprintf("process %d done", j))
+			spinner3 := spinner2.AddSpinner(spinner.CharSets[0], 200*time.Millisecond).SetPrefix(fmt.Sprintf("this is process %d", j+1)).SetComplete(fmt.Sprintf("process %d done", j+1))
 			for k := 0; k < 3; k++ {
-				spinner4 := spinner3.AddSpinner(spinner.CharSets[0], 200*time.Millisecond).SetPrefix(fmt.Sprintf("this is atomic process %d", k)).SetComplete(fmt.Sprintf("atomic process %d done", k))
+				spinner4 := spinner3.AddSpinner(spinner.CharSets[0], 200*time.Millisecond).SetPrefix(fmt.Sprintf("this is atomic process %d", k+1)).SetComplete(fmt.Sprintf("atomic process %d done", k+1))
 				pool.Add(1)
 				go func() {
 					time.Sleep(time.Duration(rand.Intn(5)+1) * time.Second)
