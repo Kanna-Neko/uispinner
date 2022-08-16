@@ -32,6 +32,7 @@ func TestSpinner(t *testing.T) {
 	cj.Start()
 	pool.Wait()
 	sp := cj.AddSpinner(spinner.CharSets[20], 499*time.Millisecond).SetPrefix("test").SetSuffix("test").SetComplete("helloWorld").Reverse()
+	fmt.Fprintf(cj.Bypass(),"Bypass Test\n")
 	time.Sleep(time.Second)
 	sp.SetInterval(1000 * time.Millisecond)
 	sp.SetCharSet(spinner.CharSets[21])
