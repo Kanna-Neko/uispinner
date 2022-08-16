@@ -6,8 +6,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/jaxleof/uispinner/tool"
-
 	"github.com/gosuri/uilive"
 )
 
@@ -25,7 +23,7 @@ func New() *Process {
 		lw:              uilive.New(),
 		tdone:           make(chan bool),
 		mtx:             &sync.RWMutex{},
-		refreshInterval: 0,
+		refreshInterval: 50 * time.Millisecond,
 	}
 }
 
@@ -34,22 +32,22 @@ func (p *Process) AddSpinner(stringSet []string, interval time.Duration) *Spinne
 	var res = NewSpinner(stringSet, interval).Bind(p)
 	p.Spinners = append(p.Spinners, res)
 	p.mtx.Unlock()
-	p.RefreshInterval()
+	// p.RefreshInterval()
 	return res
 }
 
-func (p *Process) RefreshInterval() {
-	p.mtx.Lock()
-	defer p.mtx.Unlock()
-	var interval int64 = int64(time.Second)
-	for i := 0; i < len(p.Spinners); i++ {
-		if p.Spinners[i].done {
-			continue
-		}
-		interval = tool.Gcd(interval, int64(p.Spinners[i].interval))
-	}
-	p.refreshInterval = time.Duration(interval)
-}
+// func (p *Process) RefreshInterval() {
+// 	p.mtx.Lock()
+// 	defer p.mtx.Unlock()
+// 	var interval int64 = int64(time.Second)
+// 	for i := 0; i < len(p.Spinners); i++ {
+// 		if p.Spinners[i].done {
+// 			continue
+// 		}
+// 		interval = tool.Gcd(interval, int64(p.Spinners[i].interval))
+// 	}
+// 	p.refreshInterval = time.Duration(interval)
+// }
 
 func (p *Process) Listen() {
 	for {
@@ -72,7 +70,7 @@ func (p *Process) print() {
 	p.mtx.Lock()
 	defer p.mtx.Unlock()
 	for _, Spinner := range p.Spinners {
-		fmt.Fprintln(p.lw, Spinner.String())
+		fmt.Fprint(p.lw, Spinner.String([]bool{}))
 	}
 	p.lw.Flush()
 }
