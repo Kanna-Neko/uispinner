@@ -29,6 +29,9 @@ spinner2.Done()
 cj.Stop()
 ```
 
+## snapshot
+![image.png](/test.png)
+
 ## thanks
 1. [uilive](https://github.com/gosuri/uilive). uilive is a go library for updating terminal output in realtime, which support whole uispinner.
 2. [spinner](https://github.com/briandowns/spinner), which supply many interesting spinner.
