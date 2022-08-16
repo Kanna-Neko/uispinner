@@ -1,13 +1,14 @@
 # uispinner
 [![GoDoc](https://godoc.org/github.com/briandowns/spinner?status.svg)](https://pkg.go.dev/github.com/jaxleof/uispinner@v0.0.5) [![Go](https://github.com/jaxleof/uispinner/actions/workflows/go.yml/badge.svg)](https://github.com/jaxleof/uispinner/actions/workflows/go.yml)
 
-A Go library to render multiple spinners in terminal applications, support multi process
+A Go library to render multiple spinners in terminal applications, support multi process and tree structure.
 
 ## feature
 1. support multi process
-2. chain method revise spinner
-3. update spinner dynamic
-4. every spinner has self interval
+2. tree structure supported
+3. chain method revise spinner
+4. update spinner dynamic
+5. every spinner has self interval
 
 ## install
 ``` shell
@@ -18,7 +19,8 @@ go get github.com/briandowns/spinner #this package supply many spinners
 ## usage
 ```go
 cj := uispinner.New()
-spinner1 := cj.AddSpinner(spinner.CharSets[34], 1*time.Millisecond).SetComplete("helloWorld").SetPrefix("abc").SetSuffix("ab")
+// Only multiples of 50*time.Millisecond are supported because io fresh is slow
+spinner1 := cj.AddSpinner(spinner.CharSets[34], 50*time.Millisecond).SetComplete("helloWorld").SetPrefix("abc").SetSuffix("ab")
 spinner2 := cj.AddSpinner(spinner.CharSets[0], 100*time.Millisecond).SetComplete("good")
 cj.Start()
 time.Sleep(time.Second * 5)

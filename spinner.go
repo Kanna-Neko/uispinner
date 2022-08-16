@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// responsible for managing spinner info
 type Spinner struct {
 	prefix        string
 	suffix        string
@@ -22,7 +23,8 @@ type Spinner struct {
 	childDoneNum  int
 }
 
-func NewSpinner(in []string, interval time.Duration) *Spinner {
+// create a spinner
+func newSpinner(in []string, interval time.Duration) *Spinner {
 	return &Spinner{
 		SpinnerString: in,
 		done:          false,
@@ -31,8 +33,10 @@ func NewSpinner(in []string, interval time.Duration) *Spinner {
 		mtx:           &sync.RWMutex{},
 	}
 }
+
+// create a spinner and merge it into parent spinner
 func (s *Spinner) AddSpinner(in []string, interval time.Duration) *Spinner {
-	var new = NewSpinner(in, interval)
+	var new = newSpinner(in, interval)
 	new.belong = s.belong
 	new.p = s
 	new.depth = s.depth + 1
@@ -40,6 +44,8 @@ func (s *Spinner) AddSpinner(in []string, interval time.Duration) *Spinner {
 	s.Work()
 	return new
 }
+
+// let a spinner into work status
 func (s *Spinner) Work() {
 	if !s.done {
 		return
@@ -51,12 +57,16 @@ func (s *Spinner) Work() {
 		s.p.Work()
 	}
 }
-func (s *Spinner) Bind(p *Process) *Spinner {
+
+// bind a spinenr with a process
+func (s *Spinner) bind(p *Process) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 	s.belong = p
 	return s
 }
+
+// spinner done, whose childs will be done too.
 func (s *Spinner) Done() {
 	if s.done {
 		return
@@ -76,6 +86,7 @@ func (s *Spinner) Done() {
 		v.Done()
 	}
 }
+// decorate spinner
 func (s *Spinner) SetCharSet(in []string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
@@ -83,6 +94,7 @@ func (s *Spinner) SetCharSet(in []string) *Spinner {
 	s.current = 0
 	return s
 }
+// set Spinner's fresh interval
 func (s *Spinner) SetInterval(interval time.Duration) *Spinner {
 	s.mtx.Lock()
 	s.interval = interval
@@ -92,12 +104,14 @@ func (s *Spinner) SetInterval(interval time.Duration) *Spinner {
 	// }
 	return s
 }
+// set complete word, which will be show when spinner is done
 func (s *Spinner) SetComplete(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 	s.Complete = in
 	return s
 }
+// reverse spinner CharSet
 func (s *Spinner) Reverse() *Spinner {
 	i := 0
 	j := len(s.SpinnerString) - 1
@@ -108,18 +122,22 @@ func (s *Spinner) Reverse() *Spinner {
 	}
 	return s
 }
+// decorate spinner, set prefix of spinner, which will be show when spinner is work
 func (s *Spinner) SetPrefix(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 	s.prefix = in
 	return s
 }
+// decorate spinner, set suffix of spinner, which will be show when spinner is work
 func (s *Spinner) SetSuffix(in string) *Spinner {
 	s.mtx.Lock()
 	defer s.mtx.Unlock()
 	s.suffix = in
 	return s
 }
+
+// integrate a spinner, return status of spinner now
 func (s *Spinner) String(front []bool) string {
 	var res string
 	if s.done {
