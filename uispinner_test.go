@@ -31,5 +31,11 @@ func TestSpinner(t *testing.T) {
 	}
 	cj.Start()
 	pool.Wait()
-	cj.AddSpinner(spinner.CharSets[20], 499*time.Millisecond).SetPrefix("test").SetSuffix("test").SetComplete("helloWorld")
+	sp := cj.AddSpinner(spinner.CharSets[20], 499*time.Millisecond).SetPrefix("test").SetSuffix("test").SetComplete("helloWorld").Reverse()
+	time.Sleep(time.Second)
+	sp.SetInterval(1000 * time.Millisecond)
+	sp.SetCharSet(spinner.CharSets[21])
+	time.Sleep(time.Second)
+	sp.Done()
+	cj.Stop()
 }
