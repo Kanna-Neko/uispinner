@@ -99,9 +99,6 @@ func (s *Spinner) SetInterval(interval time.Duration) *Spinner {
 	s.mtx.Lock()
 	s.interval = interval
 	s.mtx.Unlock()
-	// if !s.done {
-	// 	s.belong.RefreshInterval()
-	// }
 	return s
 }
 // set complete word, which will be show when spinner is done

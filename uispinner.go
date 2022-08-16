@@ -39,18 +39,6 @@ func (p *Process) AddSpinner(stringSet []string, interval time.Duration) *Spinne
 	return res
 }
 
-// func (p *Process) RefreshInterval() {
-// 	p.mtx.Lock()
-// 	defer p.mtx.Unlock()
-// 	var interval int64 = int64(time.Second)
-// 	for i := 0; i < len(p.Spinners); i++ {
-// 		if p.Spinners[i].done {
-// 			continue
-// 		}
-// 		interval = tool.Gcd(interval, int64(p.Spinners[i].interval))
-// 	}
-// 	p.refreshInterval = time.Duration(interval)
-// }
 
 // Process run in the background
 func (p *Process) listen() {
